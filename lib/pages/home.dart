@@ -19,6 +19,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<WiFiAccessPoint> _networks = [];
 
+  @override
+  initState() {
+    super.initState();
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () {
+        _startScan();
+        alert(
+            "Welcome to the SHIFTY Setup App!\nConnect to a WiFi from a SHIFTY-compatible Fixture and go through the setup process.",
+            title: "Welcome");
+      },
+    );
+  }
+
   void _startScan() async {
     // check platform support and necessary requirements
     final can = await WiFiScan.instance.canStartScan(askPermissions: true);
@@ -63,12 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void alert(String message) {
-    showDialog(
+  Future<void> alert(String message, {String title = "Alert"}) {
+    return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Alert'),
+          title: Text(title),
           content: Text(message),
           actions: <Widget>[
             TextButton(
