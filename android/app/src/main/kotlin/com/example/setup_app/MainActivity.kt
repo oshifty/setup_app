@@ -1,4 +1,4 @@
-package com.example.setup_app
+package vision.oshifty.setup_app
 
 import io.flutter.embedding.android.FlutterActivity
 
